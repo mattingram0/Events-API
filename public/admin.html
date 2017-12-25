@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Admin Page</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+	<script>
+		var auth_token = Cookies.get('auth_token');
+
+		if(auth_token){
+			$.get('/events2017/validate?auth_token='+auth_token+"&ip=client", function(data){
+				if(!data.success){
+					window.location = "/index.html";
+				}
+			});
+		} else {
+			window.location = "/index.html"
+		}
+	</script>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+
+	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<!-- Form CSS -->
+	<style>.bootstrap-iso .form-group button, .bootstrap-iso form input.form-control, .bootstrap-iso form textarea.form-control, .bootstrap-iso form select.form-control, .bootstrap-iso form .form-group-lg input.form-control, .bootstrap-iso form .form-group-lg textarea.form-control, .bootstrap-iso form .form-group-lg select.form-control, .bootstrap-iso form .form-group-sm input.form-control, .bootstrap-iso form .form-group-sm textarea.form-control, .bootstrap-iso form .form-group-sm select.form-control{-webkit-border-radius: 20px;-moz-border-radius: 20px; border-radius: 20px;}.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #bdc4ca !important;} .bootstrap-iso .btn-custom{background: #bdc4ca} .bootstrap-iso .btn-custom:hover{background: #a9b0b6;}.bootstrap-iso .outline, .bootstrap-iso .outline:focus{background-color: transparent; border: 2px solid #bdc4ca} .bootstrap-iso .outline:hover{background-color: transparent; border: 2px solid#e5ecf2; color: #e5ecf2 !important} .asteriskField{color: red;}.bootstrap-iso form .input-group-addon {color:#555555; background-color: #eeeeee; border-radius: 20px; padding-left:15px}</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand text-muted">Administrator Page</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+			</ul>
+			<button class="btn btn-outline-secondary my-2 my-sm-0" id="search-button" type="submit">Search for Events</button>
+		</div>
+	</nav>
+	
+	<div class="background">
+		<div class="container mainContainer" id="mainContainer">
+			<h1 class="display-1">Add a Venue</h1>
+			<form id="venueForm" method="post" action="/events2017/venues/add">
+				<div class="form-group row">
+					<label for="name" class="col-2 col-form-label text-white text-center"><h6>Name</h6></label> 
+					<div class="col-8">
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-drivers-license-o"></i>
+							</div> 
+							<input id="auth_token" name="auth_token" type="hidden">
+							<input id="name" name="name" placeholder="Required" type="text" required="required" class="form-control here">
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="town" class="col-2 col-form-label text-white text-center"><h6>Town</h6></label> 
+					<div class="col-8">
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-bank"></i>
+							</div> 
+							<input id="town" name="town" placeholder="Optional" type="text" class="form-control here">
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="postcode" class="col-2 col-form-label text-white text-center"><h6>Postcode</h6></label> 
+					<div class="col-8">
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-home"></i>
+							</div> 
+							<input id="postcode" name="postcode" placeholder="Optional" type="text" class="form-control here">
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="url" class="col-2 col-form-label text-white text-center"><h6>Website (URL)</h6></label> 
+					<div class="col-8">
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-at"></i>
+							</div> 
+							<input id="url" name="url" placeholder="Optional" type="text" class="form-control here">
+						</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="icon" class="col-2 col-form-label text-white text-center"><h6>Icon (URL)</h6></label> 
+					<div class="col-8">
+						<div class="input-group">
+							<div class="input-group-addon">
+								<i class="fa fa-file-image-o"></i>
+							</div> 
+							<input id="icon" name="icon" placeholder="Optional" type="text" class="form-control here">
+						</div>
+					</div>
+				</div> 
+				<div class="form-group d-flex bootstrap-iso" id="addButtonContainer">
+					<div class="col-sm-6 d-flex justify-content-end ">
+						<button class="btn btn-custom btn-lg outline" id="addButton" name="submit" type="submit">
+							Submit
+						</button>
+					</div>
+				</div>
+				<!-- <div class="form-group row">
+					<div class="offset-4 col-3">
+						<button name="submit" type="submit" class="btn btn-primary">Submit</button>
+					</div>
+				</div> -->
+			</form>
+
+			<h1 class="display-1 text-white hoverOver" id="listVenues" style="display: inline">List Venues</h1><p class="text-white "style="display: inline; margin-left: 10px"><i>(Click Venue to Add Event)</i></p>
+
+			<div class="modal fade addedModal" id="eventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
+				<div class="modal-dialog" role="document" style="top:20%">
+					<div class="modal-content">
+						<div class="modal-header" id="modalHeader"><h5 class="modal-title" id="exampleModalLabel">Add Event to</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						</div>
+						<div class="modal-body">
+							<form id="eventForm" method="post" action="/events2017/events/addEventToVenue">
+								<div class="form-group row">
+									<label for="name" class="col-3 col-form-label text-black text-center"><h6>Event ID</h6></label> 
+									<div class="col-8">
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-drivers-license-o"></i>
+											</div> 
+											<input id="venue_auth_token" name="auth_token" type="hidden">
+											<input id="venue_id" name="venue_id" type="hidden">
+											<input id="event_id" name="event_id" placeholder="Required" type="text" required="required" class="form-control here">
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="town" class="col-3 col-form-label text-black text-center"><h6>Title</h6></label> 
+									<div class="col-8">
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-font"></i>
+											</div> 
+											<input id="title" name="title" placeholder="Required" type="text" class="form-control here">
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="postcode" class="col-3 col-form-label text-black text-center"><h6>Blurb</h6></label> 
+									<div class="col-8">
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-file-text-o"></i>
+											</div> 
+											<input id="blurb" name="blurb" placeholder="Optional" type="text" class="form-control here">
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="url" class="col-3 col-form-label text-black text-center"><h6>Date</h6></label> 
+									<div class="col-8">
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-calendar"></i>
+											</div> 
+											<input id="date" name="date" placeholder="Optional" type="date" class="form-control here">
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="icon" class="col-3 col-form-label text-black text-center"><h6>URL</h6></label> 
+									<div class="col-8">
+										<div class="input-group">
+											<div class="input-group-addon">
+												<i class="fa fa-at"></i>
+											</div> 
+											<input id="url" name="url" placeholder="Optional" type="text" class="form-control here">
+										</div>
+									</div>
+								</div> 
+								<div class="form-group d-flex bootstrap-iso" id="addButtonContainer">
+									<div class="col d-flex justify-content-center ">
+										<button class="btn btn-custom btn-lg outline" id="eventAddButton" name="submit" type="submit">
+											Submit
+										</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+		$('#search-button').click(function(){
+			window.location = "/index.html";
+		});
+
+		$(document).on('click', '#addButton', function(event){
+			event.preventDefault();
+
+			$('#auth_token').val(Cookies.get('auth_token'));
+			var name = $('#name').val()
+			var formData = $("#venueForm").serialize();
+
+			if(name == ""){
+				$('#name').attr("placeholder", "Please Enter Venue Name!")
+			} else {
+				$.ajax({
+					type: 'POST',
+					url: $("#venueForm").attr('action'),
+					data: formData,
+					success: function(data){
+						alert(data.success)
+					}
+				})
+			}
+		});
+
+		$('#listVenues').click(function(){
+			$.ajax({ 
+				type: 'GET',
+				url: "/events2017/venues",
+				success: function(data){
+					renderVenues(data);
+				}
+			});
+		})
+
+		function renderVenues(data){
+
+			$('#venueTable').remove();
+
+			venues = data.venues;
+
+			if(venues){
+				$('.mainContainer').append('<div class="table-responsive"> <table class="container table table-hover text-center" id="venueTable"> <thead> <tr class="text-white text-center"> <th class="text-center">Venue ID</th> <th class="text-center">Name</th> <th class="text-center">Town</th> <th class="text-center">Postcode</th> <th class="text-center">Website</th> <th class="text-center">Icon</th> </tr> </thead> <tbody> </tbody> </table> </div>');
+			}
+
+			for(venue in venues){
+				v = venues[venue];
+				$('#venueTable').append('<tr class="text-white venueHover venueRow" style="cursor:pointer" id="' + venue + 'Row"> <td class="text-center" id="venueID">' + venue + '</td> <td class="text-center" id="venueName">' + v.name + '</td> <td class="text-center" id="venueTown">' + v.town + '</td><td class="text-center" id="venuePostcode">' + v.postcode + '</td> <td class="text-center" id="venueURL">' + v.url + '</td> <td class="text-center" id="venueIcon"><img id="venueImage" src="'+ v.icon +'" alt="N/A" class="img-thumbnail"></td></tr>');
+			}
+		}
+
+		$(document).on('click', '.venueRow', function(event){
+			var row = $(this)
+			$('#exampleModalLabel').text("Add an Event to " + row.find('#venueName').text())
+			$('#venue_auth_token').val(Cookies.get('auth_token'));
+			$('#venue_id').val(row.find('#venueID').text());
+			$('#eventModal').modal('toggle');
+		})
+
+		$(document).on('click', '#eventAddButton', function(event){
+
+			event.preventDefault();
+
+			var eventID = $('#event_id').val();
+			var title = $('#title').val();
+			var date = $('#date').val();
+			var formData = $("#eventForm").serialize();
+
+			if(eventID == ""){
+				$('#event_id').attr("placeholder", "Please Enter an Event ID");
+			} else if(title == ""){
+				$('#title').attr("placeholder", "Please Enter a Title");
+			} else if(date == ""){
+				$('#date').attr("placeholder", "Please Enter a Date");
+			}else{
+				$.ajax({ 
+					type: 'POST',
+					url: "/events2017/events/add",
+					data: formData,
+					success: function(data){
+						alert(data.success)
+					}
+				});
+			}
+		})
+	</script>
+</body>
+</html>

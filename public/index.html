@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>EventsAPI</title>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" /> 
+
+	<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
+
+	<!-- Form CSS -->
+	<style>.bootstrap-iso .form-group button, .bootstrap-iso form input.form-control, .bootstrap-iso form textarea.form-control, .bootstrap-iso form select.form-control, .bootstrap-iso form .form-group-lg input.form-control, .bootstrap-iso form .form-group-lg textarea.form-control, .bootstrap-iso form .form-group-lg select.form-control, .bootstrap-iso form .form-group-sm input.form-control, .bootstrap-iso form .form-group-sm textarea.form-control, .bootstrap-iso form .form-group-sm select.form-control{-webkit-border-radius: 20px;-moz-border-radius: 20px; border-radius: 20px;}.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: #bdc4ca !important;} .bootstrap-iso .btn-custom{background: #bdc4ca} .bootstrap-iso .btn-custom:hover{background: #a9b0b6;}.bootstrap-iso .outline, .bootstrap-iso .outline:focus{background-color: transparent; border: 2px solid #bdc4ca} .bootstrap-iso .outline:hover{background-color: transparent; border: 2px solid#e5ecf2; color: #e5ecf2 !important} .asteriskField{color: red;}.bootstrap-iso form .input-group-addon {color:#555555; background-color: #eeeeee; border-radius: 20px; padding-left:15px}</style>
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand text-muted">EventsAPI Assignment</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+			</ul>
+			<button class="btn btn-outline-secondary my-2 my-sm-0 hidden" id="admin-button" type="submit">Administrator Login</button>
+			<button class="btn btn-outline-secondary my-2 my-sm-0" id="search-button" type="submit">Search for Events</button>
+		</div>
+	</nav>
+	
+	<div class="background">
+		<div class="container d-flex h-100 align-items-center">
+			<div id="search-div" class="col-12 text-center">
+				<div class="jumbotron" id="box">
+					<h1 class="display-2 text-light">Search for Events</h1>
+					<hr class="my-4">
+					<div class="bootstrap-iso" id="search-form-container">
+						<div class="container-fluid">
+							<div class="row align-self-center">
+								<div class="col-12 align-self-center">
+									<form class="form-horizontal" id="search-form" method="get" action="/events2017/events/search">
+										<div class="form-group form-group-lg">
+											<div class="col-sm-12">
+												<div class="input-group">
+													<div class="input-group-addon">
+														<i class="fa fa-search">
+														</i>
+													</div>
+													<input class="form-control" id="search" name="search" placeholder="Enter event key words" type="text"/>
+													<div class="input-group-addon">
+														<i class="fa ">
+														</i>
+													</div>
+												</div>
+												<span class="help-block" id="hint_search">
+												</span>
+											</div>
+										</div>
+										<div class="form-group form-group-lg">
+											<div class="col-sm-12">
+												<div class="input-group">
+													<div class="input-group-addon">
+														<i class="fa fa-calendar">
+														</i>
+													</div>
+													<input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="date"/>
+													<div class="input-group-addon">
+														<i class="fa ">
+														</i>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group d-flex">
+											<div class="col-sm-6 d-flex justify-content-end">
+												<button class="btn btn-custom btn-lg outline" id="submit-button" name="submit" type="submit">
+													Submit
+												</button>
+											</div>
+											<div class="col-sm-6 d-flex justify-content-start">
+												<label class="custom-control custom-checkbox checkbox-inline">
+													<input type="checkbox" class="custom-control-input checkbox" id="eventCheck" name="eventCheck">
+													<span class="custom-control-indicator middle"></span>
+													<span class="custom-control-description text-light"> <h4>&nbsp;Use EventfulAPI</h4></span>
+												</label>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="container">
+					<div class="row text-light h6 addedEvent"> 
+						<div class="col hoverOver eventName" id="event' + i.toString() + '" style="cursor:pointer">
+							Title
+						</div>
+						<div class="col-2">
+							Date
+						</div>
+						<div class="col">
+							Venue
+						</div> 
+					</div>
+				</div> -->
+			</div>
+		</div>
+	</div>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+	<script type="text/javascript">
+
+		function renderEvents(data){
+
+			$('.addedEvent').remove();
+			$('.addedModal').remove();
+			var events = data.events
+
+		//special case for if no events returned
+
+		if(events.length > 0){
+			$('#search-div').append('<div class="row text-secondary addedEvent"> <div class="col"> Event Name </div><div class="col-2"> Date </div> <div class="col"> Venue </div> </div>');
+		}
+
+		for(var i = 0; i < events.length; i++){
+			$('#search-div').append('<div class="row text-light h6 addedEvent"> <div class="col hoverOver eventName" id="event' + i.toString() + '" style="cursor:pointer">' + events[i].title + '</div><div class="col-2">' + events[i].date.substring(0, 10) + '</div> <div class="col">' + events[i].venue.name + '</div> </div>');
+			$('#box').append('<div class="modal fade addedModal" id="modal' + i.toString() + '" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> <div class="modal-dialog" role="document" style="top:20%"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="exampleModalLabel">' + events[i].title + '</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><p><b>Event ID: </b>' + events[i].event_id + '</p><p><b>Title: </b>' + events[i].title + '</p><p><b>Blurb: </b>' + events[i].blurb + '</p><p><b>Date: </b>' + events[i].date.substring(0, 10) + '</p><p><b>Website: </b><a href="' + events[i].url + '">' + events[i].url + '</a></p><p><b>Venue ID: </b>' + events[i].venue.venue_id + '</p><p><i>&nbsp;Name: </i>' + events[i].venue.name + '</p><p><i>&nbsp;Postcode: </i>' + events[i].venue.postcode + '</p><p><i>&nbsp;Town: </i>' + events[i].venue.town + '</p><p><i>&nbsp;URL: </i><a href="' + events[i].venue.url + '">' + events[i].venue.url + '</a></p><p><i>&nbsp;Icon: </i> <img src="'+ events[i].venue.icon +'" alt="Unable to Load Icon" class="img-thumbnail"></p><p></div></div></div></div>');
+		}
+	}
+
+	$(document).on('click', '.eventName', function(){
+		id = $(this).attr('id');
+		number = id.substring(5);
+		modalID = 'modal' + number;
+		$('#'+modalID).modal('toggle');
+	});
+
+	$('#search-button').click(function(){
+		if($(this).hasClass("hidden")){
+			jQuery('#admin-div').fadeOut("slow", function(){
+				var div = $('<div id="search-div" class="col-12 text-center"> <div class="jumbotron" id="box"> <h1 class="display-2 text-light">Search for Events</h1> <hr class="my-4"> <div class="bootstrap-iso" id="search-form-container"> <div class="container-fluid"> <div class="row align-self-center"> <div class="col-12 align-self-center"> <form class="form-horizontal" id="search-form" method="get" action="/events2017/events/search"> <div class="form-group form-group-lg"> <div class="col-sm-12"> <div class="input-group"> <div class="input-group-addon"> <i class="fa fa-search"> </i> </div> <input class="form-control" id="search" name="search" placeholder="Enter event key words" type="text"/> <div class="input-group-addon"> <i class="fa "> </i> </div> </div> <span class="help-block" id="hint_search"> </span> </div> </div> <div class="form-group form-group-lg"> <div class="col-sm-12"> <div class="input-group"> <div class="input-group-addon"> <i class="fa fa-calendar"> </i> </div> <input class="form-control" id="date" name="date" placeholder="DD/MM/YYYY" type="date"/> <div class="input-group-addon"> <i class="fa "> </i> </div> </div> </div> </div> <div class="form-group d-flex"> <div class="col-sm-6 d-flex justify-content-end"> <button class="btn btn-custom btn-lg outline" id="submit-button" name="submit" type="submit"> Submit </button> </div> <div class="col-sm-6 d-flex justify-content-start"> <label class="custom-control custom-checkbox checkbox-inline"> <input type="checkbox" class="custom-control-input checkbox"> <span class="custom-control-indicator middle"></span> <span class="custom-control-description text-light"> <h4>&nbsp;Use EventfulAPI</h4></span> </label> </div> </div> </form> </div> </div> </div> </div> </div> </div>"').hide();
+				$(this).replaceWith(div);
+				$('#search-div').fadeIn("slow");
+			});
+			$(this).removeClass("hidden")
+			$('#admin-button').addClass("hidden")
+		} else {
+			return
+		}
+	});
+
+	$('#admin-button').click(function(){
+
+		var auth_token = Cookies.get('auth_token');
+
+		if(auth_token){
+			$.get('/events2017/validate?auth_token='+auth_token+"&ip=client", function(data){
+				if(data.success){
+					window.location = "/admin.html";
+				}
+			});
+		}
+
+		if($(this).hasClass("hidden")){
+			$('#search-div').fadeOut("slow", function(){
+				var div = $('<div id="admin-div" class="col-12 text-center"> <div class="jumbotron" id="box"> <h1 class="display-2 text-light">Admin Login</h1> <hr class="my-4"> <div class="bootstrap-iso" id="admin-form-container"> <div class="container-fluid"> <div class="row align-self-center"> <div class="col-12 align-self-center"> <form class="form-horizontal" id="admin-form" method="post" action="/events2017/authenticate"> <div class="form-group form-group-lg"> <div class="col-sm-12"> <div class="input-group"> <div class="input-group-addon"> <i class="fa fa-user"> </i> </div> <input class="form-control" id="username" name="username" placeholder="Please Enter Username" type="text"/> <div class="input-group-addon"> <i class="fa"> </i> </div> </div> <span class="help-block" id="hint_search"> </span> </div> </div> <div class="form-group form-group-lg"> <div class="col-sm-12"> <div class="input-group"> <div class="input-group-addon"> <i class="fa fa-key"> </i> </div> <input class="form-control" id="password" name="password" type="password" placeholder="Please Enter Password" type="text"/> <div class="input-group-addon"> <i class="fa "> </i> </div> </div> </div> </div> <div class="form-group "> <div class="col"> <button class="btn btn-custom btn-lg outline" id="admin-submit-button" name="submit" type="submit"> Login </button> </div> </div> </form> </div> </div> </div> </div> </div> </div>').hide();
+				$(this).replaceWith(div);
+				$('#admin-div').fadeIn("slow");
+			});
+			$(this).removeClass("hidden")
+			$('#search-button').addClass("hidden")
+		} else {
+			return
+		}
+	});
+
+	$(document).on('click', '#submit-button', function(event){
+		event.preventDefault();
+
+		var date = $('#date').val()
+		var keywords = $('#search').val()
+		var formData = $("#search-form").serialize();
+
+		if(date == "" && keywords == ""){
+			$('#search').attr("placeholder", "Please Enter a Search Term or Date");
+		} else{
+			$.ajax({ 
+				type: 'GET',
+				url: $("#search-form").attr('action'),
+				data: formData,
+				success: function(data){
+					renderEvents(data);
+				}
+			});
+		}
+	});
+
+	$(document).on('click', '#admin-submit-button', function(event){
+		event.preventDefault();
+
+		var username = $('#username').val()
+		var password = $('#password').val()
+		var formData = $("#admin-form").serialize();
+
+		if(username == ""){
+			$('#username').attr("placeholder", "Please Enter Username!")
+		} else if(password == ""){
+			$('#password').attr("placeholder", "Please Enter Password!")
+		} else {
+			$.ajax({
+				type: 'POST',
+				url: $("#admin-form").attr('action'),
+				data: formData,
+				success: function(data){
+					if(data.success){
+						window.location = "/admin.html";
+					} else {
+						$('#username').val('');
+						$('#password').val('');
+						$('#username').attr("placeholder", "Incorrect Username and Password");
+						$('#password').attr("placeholder", "Please Try Again")
+					}
+				}
+			})
+		}
+	});
+</script>
+
+</body>
+</html>
