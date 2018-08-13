@@ -21,7 +21,7 @@ npm run dev
 The server should now be running locally on http://localhost:8090, and can be accessed through the browser.
 
 ## API Documentation
-From now on, BASE will be used as shorthand for http://127.0.0.1:8090/events2017/. All responses are given in standard JSON format.
+From now on, BASE will be used as shorthand for http://127.0.0.1:8090/events2017/. All responses are given in standard JSON format. With the exception of the GET BASE/events/get/:event_id API call which takes its parameter in the URL, all parameters should be passed in the body of the request 
 
 #### GET BASE/venues
 Returns the details of all of the venues.
@@ -144,6 +144,10 @@ Example Response (If event_id incorrect or undefined):
 }
 ```
 
+## Authentication
+As this is simply a proof-of-concept web application, there are two ways of authenticating successfully pre-coded into the application:
+* The first is to use the auth_token "concertina" and any IP address of the form: "129.234.xxx.xxx"
+* The second is to use the username "matt" with the password "password" from any IP address to generate a new auth_token of your own
 
-
-## Admin Login
+## Website
+Along with the API, there is a user-friendly website interface which can be accessed at http://127.0.0.1:8090/events2017/index.html. This page provides the user with an intuitive search bar for search for events. From this page, the user may login using the credentials discusses above in the Authentication section. Upon successful login, the user will be taken to the admin page where he/she can add new events and venues using an intuitive web interface. The website is responsive and uses the Bootstrap framework.
