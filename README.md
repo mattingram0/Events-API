@@ -84,4 +84,37 @@ Example Response (If event_id incorrect or undefined):
 }
 ```
 
+#### POST BASE/venues/add
+Creates a new venue based on several required and optional parameters. See the authentication section for more on the auth_token parameter.
+* **auth_token** - the authentication token required to add new venues(*required*)
+* **name** - text value name of the venue (*required*)
+* **postcode** - text value postcode of the venue (*optional*)
+* **town** - text value town of the venue(*optional*)
+* **url** - text value of website of venue(*optional*)
+* **icon** - text value of url to icon for venu (*optional*)
+
+Example response (if auth_token not defined or incorrect)
+```
+{
+    "error": "not authorised, wrong token"
+}
+```
+
+#### POST BASE/events/add
+Creates a new event based on several required and optional parameters. See the authentication section for more on the auth_token parameter.
+* **auth_token** - the authentication token required to add new events(*required*)
+* **event_id** - numerical value of the event_id (*required*)
+* **title** - text value title of the event (*required*)
+* **venue_id** - numerical value venue_id of existing venue(*required*)
+* **date** - ISO8601 formatted date value of date of event(*required*)
+* **url** - text value of url to icon for event (*optional*)
+* **blurb** - text value of url to icon for event (*optional*)
+
+Example response (if auth_token not defined or incorrect)
+```
+{
+    "error": "not authorised, wrong token"
+}
+```
+
 ## Admin Login
