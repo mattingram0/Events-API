@@ -48,9 +48,9 @@ Example Response:
 }
 ```
 #### GET BASE/events/search
-Searches for events based on two *optional* parameters:
-* **search** - url-encoded string to be used to search event title
-* **date** - url-encoded string representing the date to search for
+Searches for events based on two parameters:
+* **search** - url-encoded string to be used to search event title (*optional*) 
+* **date** - url-encoded string representing the date to search for (*optional*)
 
 Example Response:
 ```json
@@ -74,8 +74,8 @@ Example Response:
 ```
 
 #### GET BASE/events/get/:event_id
-Searches for an event based on one *required* parameter. Events are return in same format as GET BASE/events/search
-* **event_id** - numerical parameter in URL
+Searches for an event based on one parameter. Events are return in same format as GET BASE/events/search
+* **event_id** - numerical parameter in URL (*required*)
 
 Example Response (If event_id incorrect or undefined):
 ```json
@@ -84,17 +84,44 @@ Example Response (If event_id incorrect or undefined):
 }
 ```
 
+#### GET BASE/validate
+Takes an auth_token and and IP address and returns whether or not the token is valid. Please see the authentication section for more detail.
+* **auth_token** - a JSON Web Token string (*required*)
+* **ip** - the IP address of the sender wishing to validate his token (*required*)
+
+Example Response (If auth_token is valid for the IP address provided):
+```json
+{
+    "success": true,
+    "message": "Successfully Authenticated Token"
+}
+```
+
+#### POST BASE/authenticate
+Takes a username, password and IP address and issues a JSON Web Token aut_token for that IP address if successful. The auth_token lasts two hours and gives the holder the ability to create new events and venues, as well as access the admin page. Please see the authentication section for more detail.  
+* **username** - a username string (*required*)
+* **password** - a password string (*required*)
+* **ip** - the IP address of the sender wishing to acquire an auth_token (*required*)
+
+Example Response (If correct credentials are provided):
+```json
+{
+    "success": true,
+    "auth_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+}
+```
+
 #### POST BASE/venues/add
 Creates a new venue based on several required and optional parameters. See the authentication section for more on the auth_token parameter.
-* **auth_token** - the authentication token required to add new venues(*required*)
+* **auth_token** - the authentication token required to add new venues (*required*)
 * **name** - text value name of the venue (*required*)
 * **postcode** - text value postcode of the venue (*optional*)
-* **town** - text value town of the venue(*optional*)
-* **url** - text value of website of venue(*optional*)
+* **town** - text value town of the venue (*optional*)
+* **url** - text value of website of venue (*optional*)
 * **icon** - text value of url to icon for venu (*optional*)
 
-Example response (if auth_token not defined or incorrect)
-```
+Example Response (If event_id incorrect or undefined):
+```json
 {
     "error": "not authorised, wrong token"
 }
@@ -102,19 +129,21 @@ Example response (if auth_token not defined or incorrect)
 
 #### POST BASE/events/add
 Creates a new event based on several required and optional parameters. See the authentication section for more on the auth_token parameter.
-* **auth_token** - the authentication token required to add new events(*required*)
+* **auth_token** - the authentication token required to add new events (*required*)
 * **event_id** - numerical value of the event_id (*required*)
 * **title** - text value title of the event (*required*)
-* **venue_id** - numerical value venue_id of existing venue(*required*)
-* **date** - ISO8601 formatted date value of date of event(*required*)
+* **venue_id** - numerical value venue_id of existing venue (*required*)
+* **date** - ISO8601 formatted date value of date of event (*required*)
 * **url** - text value of url to icon for event (*optional*)
-* **blurb** - text value of url to icon for event (*optional*)
+* **blurb** - text value of description of event (*optional*)
 
-Example response (if auth_token not defined or incorrect)
+Example Response (If event_id incorrect or undefined):
 ```
 {
     "error": "not authorised, wrong token"
 }
 ```
+
+
 
 ## Admin Login
