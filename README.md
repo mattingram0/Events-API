@@ -1,5 +1,5 @@
 # Events-API
-An Event-management RESTful API, with a Website front-end and administrative page
+An Event-management RESTful API, with a website front-end and administrative page
 
 ## Prerequisites
 To run the Node.js RESTful API locally on your machine, the latest version of **Node.js** needs to be installed, along with the following additionial packages: **body-parser**, **async**, **body-parser**, **Bootstrap**, **cookie-parser**, **express**, **express-session**, **js-cookie**, **jswebtoken**, **morgan**, **nodemon**, **request** and **request-ip**. All of these packages can be installed using the **npm** package manager.
